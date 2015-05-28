@@ -1,0 +1,18 @@
+{
+  "name": "test",
+  "version": "0.0.0",
+  "authors": [
+    "kamil9998 <kamil9998@vp.pl>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "~3.3.4"
+  }
+}

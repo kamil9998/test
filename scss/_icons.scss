@@ -1,0 +1,114 @@
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet: width height image $spritesheet-sprites;
+*/
+$eight-name: 'eight';
+$eight-x: 0px;
+$eight-y: 59px;
+$eight-offset-x: 0px;
+$eight-offset-y: -59px;
+$eight-width: 28px;
+$eight-height: 16px;
+$eight-total-width: 112px;
+$eight-total-height: 75px;
+$eight-image: '../img/spritesheet.png';
+$eight: (0px, 59px, 0px, -59px, 28px, 16px, 112px, 75px, '../img/spritesheet.png', 'eight', );
+$message-name: 'message';
+$message-x: 86px;
+$message-y: 0px;
+$message-offset-x: -86px;
+$message-offset-y: 0px;
+$message-width: 26px;
+$message-height: 26px;
+$message-total-width: 112px;
+$message-total-height: 75px;
+$message-image: '../img/spritesheet.png';
+$message: (86px, 0px, -86px, 0px, 26px, 26px, 112px, 75px, '../img/spritesheet.png', 'message', );
+$sim-name: 'sim';
+$sim-x: 0px;
+$sim-y: 0px;
+$sim-offset-x: 0px;
+$sim-offset-y: 0px;
+$sim-width: 34px;
+$sim-height: 49px;
+$sim-total-width: 112px;
+$sim-total-height: 75px;
+$sim-image: '../img/spritesheet.png';
+$sim: (0px, 0px, 0px, 0px, 34px, 49px, 112px, 75px, '../img/spritesheet.png', 'sim', );
+$sun-name: 'sun';
+$sun-x: 44px;
+$sun-y: 0px;
+$sun-offset-x: -44px;
+$sun-offset-y: 0px;
+$sun-width: 32px;
+$sun-height: 32px;
+$sun-total-width: 112px;
+$sun-total-height: 75px;
+$sun-image: '../img/spritesheet.png';
+$sun: (44px, 0px, -44px, 0px, 32px, 32px, 112px, 75px, '../img/spritesheet.png', 'sun', );
+$spritesheet-width: 112px;
+$spritesheet-height: 75px;
+$spritesheet-image: '../img/spritesheet.png';
+$spritesheet-sprites: ($eight, $message, $sim, $sun, );
+$spritesheet: (112px, 75px, '../img/spritesheet.png', $spritesheet-sprites, );
+
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+*/
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
+
+@include sprites($spritesheet-sprites);
+*/
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}
